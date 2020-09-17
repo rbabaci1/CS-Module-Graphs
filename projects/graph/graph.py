@@ -72,8 +72,8 @@ class Graph:
         while len(stack):
             current_vertex = stack.pop()
             if current_vertex not in visited:
-                visited.add(current_vertex)
                 print(current_vertex)
+                visited.add(current_vertex)
                 for neighbor in self.get_neighbors(current_vertex):
                     stack.append(neighbor)
 
@@ -110,7 +110,9 @@ class Graph:
             current_vertex = current_path[-1]
 
             if current_vertex == destination_vertex:
-                return current_path
+                return self.get_shortest_path(
+                    (list(queue) + [current_path]), destination_vertex
+                )
 
             if current_vertex not in visited:
                 visited.add(current_vertex)
@@ -130,12 +132,11 @@ class Graph:
         stack.append([starting_vertex])
 
         while len(stack):
-            print("iterative +1")
             current_path = stack.pop()
             current_vertex = current_path[-1]
 
             if current_vertex == destination_vertex:
-                return self.get_shortest_path(list(stack), destination_vertex)
+                return current_path
 
             if current_vertex not in visited:
                 visited.add(current_vertex)
@@ -157,12 +158,11 @@ class Graph:
         visited = set()
 
         def r_helper(self, destination_vertex):
-            print("recursive +1")
             current_path = stack.pop()
             current_vertex = current_path[-1]
 
             if current_vertex == destination_vertex:
-                return self.get_shortest_path(list(stack), destination_vertex)
+                return current_path
 
             if current_vertex not in visited:
                 visited.add(current_vertex)
@@ -176,8 +176,8 @@ class Graph:
 
 
 if __name__ == "__main__":
-    graph = Graph()  # Instantiate your graph
-    # https://github.com/LambdaSchool/Graphs/blob/master/objectives/breadth-first-search/img/bfs-visit-order.png
+    graph = Graph()  # Instantiate the graph
+
     graph.add_vertex(1)
     graph.add_vertex(2)
     graph.add_vertex(3)
@@ -185,6 +185,7 @@ if __name__ == "__main__":
     graph.add_vertex(5)
     graph.add_vertex(6)
     graph.add_vertex(7)
+
     graph.add_edge(5, 3)
     graph.add_edge(6, 3)
     graph.add_edge(7, 1)
@@ -233,12 +234,12 @@ if __name__ == "__main__":
     Valid BFS path:
         [1, 2, 4, 6]
     """
-    # print(graph.bfs(1, 6))
+    print(graph.bfs(1, 6))
 
     """
     Valid DFS paths:
         [1, 2, 4, 6]
         [1, 2, 4, 7, 6]
     """
-    print(graph.dfs(1, 7))
-    print(graph.dfs_recursive(1, 6))
+    # print(graph.dfs(1, 6))
+    # print(graph.dfs_recursive(1, 6))
