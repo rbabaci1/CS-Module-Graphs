@@ -1,7 +1,7 @@
 """
 Simple graph implementation
 """
-from util import Stack, Queue  # These may come in handy
+from collections import deque
 
 
 class Graph:
@@ -10,6 +10,9 @@ class Graph:
 
     def __init__(self):
         self.vertices = {}
+
+    def __str__(self):
+        return str(self.vertices)
 
     def add_vertex(self, vertex_id):
         """
@@ -38,7 +41,18 @@ class Graph:
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        queue = deque()
+        queue.append(starting_vertex)
+        visited = set()
+
+        while len(queue) > 0:
+            current_vertex = queue.popleft()
+
+            if current_vertex not in visited:
+                visited.add(current_vertex)
+                print(current_vertex)
+                for neighbor in self.vertices[current_vertex]:
+                    queue.append(neighbor)
 
     def dft(self, starting_vertex):
         """
