@@ -41,7 +41,7 @@ class Graph:
         for path in paths:
             if path[-1] == destination_vertex:
                 matches.append(path)
-        return min(matches, key=lambda p: len(p))
+        return min(matches, key=lambda p: len(p)) if matches else None
 
     def bft(self, starting_vertex):
         """
@@ -130,6 +130,7 @@ class Graph:
         stack.append([starting_vertex])
 
         while len(stack):
+            print("iterative +1")
             current_path = stack.pop()
             current_vertex = current_path[-1]
 
@@ -156,6 +157,7 @@ class Graph:
         visited = set()
 
         def r_helper(self, destination_vertex):
+            print("recursive +1")
             current_path = stack.pop()
             current_vertex = current_path[-1]
 
@@ -238,5 +240,5 @@ if __name__ == "__main__":
         [1, 2, 4, 6]
         [1, 2, 4, 7, 6]
     """
-    # print(graph.dfs(1, 6))
+    print(graph.dfs(1, 7))
     print(graph.dfs_recursive(1, 6))
