@@ -101,6 +101,7 @@ class Graph:
         while len(queue):
             current_path = queue.popleft()
             current_vertex = current_path[-1]
+
             if current_vertex == destination_vertex:
                 return current_path
 
@@ -117,7 +118,23 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
+        stack = deque()
+        visited = set()
+        stack.append([starting_vertex])
+
+        while len(stack):
+            current_path = stack.pop()
+            current_vertex = current_path[-1]
+
+            if current_vertex == destination_vertex:
+                return current_path
+
+            if current_vertex not in visited:
+                visited.add(current_vertex)
+                for neighbor in self.get_neighbors(current_vertex):
+                    new_path = list(current_path)
+                    new_path.append(neighbor)
+                    stack.append(new_path)
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
         """
