@@ -36,6 +36,13 @@ class Graph:
         if vertex_id in self.vertices:
             return self.vertices[vertex_id]
 
+    def get_shortest_path(self, paths, destination_vertex):
+        matches = []
+        for path in paths:
+            if path[-1] == destination_vertex:
+                matches.append(path)
+        return min(matches, key=lambda p: len(p))
+
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
@@ -127,7 +134,7 @@ class Graph:
             current_vertex = current_path[-1]
 
             if current_vertex == destination_vertex:
-                return current_path
+                return self.get_shortest_path(list(stack), destination_vertex)
 
             if current_vertex not in visited:
                 visited.add(current_vertex)
@@ -144,7 +151,26 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        stack = deque()
+        stack.append([starting_vertex])
+        visited = set()
+
+        def r_helper(self, destination_vertex):
+            current_path = stack.pop()
+            current_vertex = current_path[-1]
+
+            if current_vertex == destination_vertex:
+                return self.get_shortest_path(list(stack), destination_vertex)
+
+            if current_vertex not in visited:
+                visited.add(current_vertex)
+                for n in self.get_neighbors(current_vertex):
+                    new_path = list(current_path)
+                    new_path.append(n)
+                    stack.append(new_path)
+                return r_helper(self, destination_vertex)
+
+        return r_helper(self, destination_vertex)
 
 
 if __name__ == "__main__":
@@ -172,7 +198,7 @@ if __name__ == "__main__":
     Should print:
         {1: {2}, 2: {3, 4}, 3: {5}, 4: {6, 7}, 5: {3}, 6: {3}, 7: {1, 6}}
     """
-    print(graph.vertices)
+    # print(graph.vertices)
 
     """
     Valid BFT paths:
@@ -213,4 +239,4 @@ if __name__ == "__main__":
         [1, 2, 4, 7, 6]
     """
     # print(graph.dfs(1, 6))
-    # print(graph.dfs_recursive(1, 6))
+    print(graph.dfs_recursive(1, 6))
