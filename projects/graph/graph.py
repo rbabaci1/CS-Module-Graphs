@@ -50,7 +50,7 @@ class Graph:
             if current_vertex not in visited:
                 visited.add(current_vertex)
                 print(current_vertex)
-                for neighbor in self.vertices[current_vertex]:
+                for neighbor in self.get_neighbors(current_vertex):
                     queue.append(neighbor)
 
     def dft(self, starting_vertex):
@@ -67,7 +67,7 @@ class Graph:
             if current_vertex not in visited:
                 visited.add(current_vertex)
                 print(current_vertex)
-                for neighbor in self.vertices[current_vertex]:
+                for neighbor in self.get_neighbors(current_vertex):
                     stack.append(neighbor)
 
     def dft_recursive(self, starting_vertex):
@@ -79,14 +79,14 @@ class Graph:
         """
         visited = set()
 
-        def helper(self, starting_vertex):
+        def r_helper(self, starting_vertex):
             if starting_vertex not in visited:
                 visited.add(starting_vertex)
                 print(starting_vertex)
-                for neighbor in self.vertices[starting_vertex]:
-                    helper(self, neighbor)
+                for neighbor in self.get_neighbors(starting_vertex):
+                    r_helper(self, neighbor)
 
-        helper(self, starting_vertex)
+        r_helper(self, starting_vertex)
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -94,7 +94,22 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        queue = deque()
+        visited = set()
+        queue.append([starting_vertex])
+
+        while len(queue):
+            current_path = queue.popleft()
+            current_vertex = current_path[-1]
+            if current_vertex == destination_vertex:
+                return current_path
+
+            if current_vertex not in visited:
+                visited.add(current_vertex)
+                for neighbor in self.get_neighbors(current_vertex):
+                    new_path = list(current_path)
+                    new_path.append(neighbor)
+                    queue.append(new_path)
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -157,7 +172,7 @@ if __name__ == "__main__":
         1, 2, 4, 3, 7, 6, 5
         1, 2, 4, 3, 7, 5, 6
     """
-    graph.bft(1)
+    # graph.bft(1)
 
     """
     Valid DFT paths:
@@ -166,19 +181,19 @@ if __name__ == "__main__":
         1, 2, 4, 7, 6, 3, 5
         1, 2, 4, 6, 3, 5, 7
     """
-    graph.dft(1)
-    graph.dft_recursive(1)
+    # graph.dft(1)
+    # graph.dft_recursive(1)
 
     """
     Valid BFS path:
         [1, 2, 4, 6]
     """
-    print(graph.bfs(1, 6))
+    # print(graph.bfs(1, 6))
 
     """
     Valid DFS paths:
         [1, 2, 4, 6]
         [1, 2, 4, 7, 6]
     """
-    print(graph.dfs(1, 6))
-    print(graph.dfs_recursive(1, 6))
+    # print(graph.dfs(1, 6))
+    # print(graph.dfs_recursive(1, 6))
