@@ -45,9 +45,8 @@ class Graph:
         queue.append(starting_vertex)
         visited = set()
 
-        while len(queue) > 0:
+        while len(queue):
             current_vertex = queue.popleft()
-
             if current_vertex not in visited:
                 visited.add(current_vertex)
                 print(current_vertex)
@@ -63,9 +62,8 @@ class Graph:
         stack.append(starting_vertex)
         visited = set()
 
-        while len(stack) > 0:
+        while len(stack):
             current_vertex = stack.pop()
-
             if current_vertex not in visited:
                 visited.add(current_vertex)
                 print(current_vertex)
@@ -79,7 +77,16 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        visited = set()
+
+        def helper(self, starting_vertex):
+            if starting_vertex not in visited:
+                visited.add(starting_vertex)
+                print(starting_vertex)
+                for neighbor in self.vertices[starting_vertex]:
+                    helper(self, neighbor)
+
+        helper(self, starting_vertex)
 
     def bfs(self, starting_vertex, destination_vertex):
         """
