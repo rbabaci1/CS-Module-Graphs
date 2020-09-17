@@ -166,9 +166,9 @@ class Graph:
 
             if current_vertex not in visited:
                 visited.add(current_vertex)
-                for n in self.get_neighbors(current_vertex):
+                for neighbor in self.get_neighbors(current_vertex):
                     new_path = list(current_path)
-                    new_path.append(n)
+                    new_path.append(neighbor)
                     stack.append(new_path)
                 return r_helper(self, destination_vertex)
 
