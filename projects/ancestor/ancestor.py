@@ -4,8 +4,7 @@ from collections import deque
 def earliest_ancestor(ancestors, starting_node):
     stack = deque()
     stack.append([starting_node])
-    graph = create_graph(ancestors)
-    paths, ancestor = [], -1
+    graph, paths, ancestor = create_graph(ancestors), [], -1
 
     while len(stack):
         current_path = stack.pop()
