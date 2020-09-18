@@ -158,12 +158,9 @@ class Graph:
 
         This should be done using recursion.
         """
-        stack = deque()
-        stack.append([starting_vertex])
         visited = set()
 
-        def r_helper(self, destination_vertex):
-            current_path = stack.pop()
+        def r_helper(self, current_path):
             current_vertex = current_path[-1]
 
             if current_vertex == destination_vertex:
@@ -174,10 +171,12 @@ class Graph:
                 for neighbor in self.get_neighbors(current_vertex):
                     new_path = list(current_path)
                     new_path.append(neighbor)
-                    stack.append(new_path)
-                return r_helper(self, destination_vertex)
+                    res = r_helper(self, new_path)
+                    if len(res):
+                        return res
+            return []
 
-        return r_helper(self, destination_vertex)
+        return r_helper(self, [starting_vertex])
 
 
 if __name__ == "__main__":
@@ -205,7 +204,7 @@ if __name__ == "__main__":
     Should print:
         {1: {2}, 2: {3, 4}, 3: {5}, 4: {6, 7}, 5: {3}, 6: {3}, 7: {1, 6}}
     """
-    print(graph.vertices)
+    # print(graph.vertices)
 
     """
     Valid BFT paths:
@@ -246,4 +245,4 @@ if __name__ == "__main__":
         [1, 2, 4, 7, 6]
     """
     # print(graph.dfs(1, 6))
-    # print(graph.dfs_recursive(1, 6))
+    print(graph.dfs_recursive(1, 6))
