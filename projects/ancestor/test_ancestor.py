@@ -27,6 +27,7 @@ class Test(unittest.TestCase):
             (11, 8),
             (10, 1),
         ]
+
         self.assertEqual(earliest_ancestor(test_ancestors, 1), 10)
         self.assertEqual(earliest_ancestor(test_ancestors, 2), -1)
         self.assertEqual(earliest_ancestor(test_ancestors, 3), 10)

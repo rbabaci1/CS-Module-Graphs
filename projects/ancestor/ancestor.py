@@ -1,16 +1,34 @@
+from collections import deque
+
+
 def earliest_ancestor(ancestors, starting_node):
-    # 1- U
-    # ancestors = [(1,3), (2, 3), (3,6), (5,6), (5,7), (4,5), (4,8), (8,9), (11,8), (10,1)]
-    # To find the earliest ancestor, we might have to use a Depth first search strategy
-    # Vertice = child
-    # Edge = relation between parent and child, (parent)
-    # Weights = None
+    stack = deque()
+    stack.append([starting_node])
+    graph = create_graph(ancestors)
+    paths = []
 
-    # 2- P
-    # - first create the graph by having all the children as vertices and the parents as edges
-    #
+    while len(stack):
+        current_path = stack.pop()
+        current_vertex = current_path[-1]
 
-    pass
+        if current_vertex in graph:
+            for neighbor in graph[current_vertex]:
+                new_path = list(current_path)
+                new_path.append(neighbor)
+                stack.append(new_path)
+        elif current_vertex != starting_node:
+            paths.append(current_path)
+
+    return get_longest(paths) if len(paths) else -1
+
+
+def get_longest(paths):
+    result = paths[-1][-1]
+    for path in paths:
+        if len(path) == len(paths[-1]):
+            if result > path[-1]:
+                result = path[-1]
+    return result
 
 
 def create_graph(ancestors):
@@ -20,4 +38,6 @@ def create_graph(ancestors):
             graph[pair[1]].add(pair[0])
         else:
             graph[pair[1]] = set()
+            graph[pair[1]].add(pair[0])
     return graph
+
