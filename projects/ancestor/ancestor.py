@@ -5,7 +5,7 @@ def earliest_ancestor(ancestors, starting_node):
     stack = deque()
     stack.append([starting_node])
     graph = create_graph(ancestors)
-    paths = []
+    paths, ancestor = [], -1
 
     while len(stack):
         current_path = stack.pop()
@@ -19,16 +19,13 @@ def earliest_ancestor(ancestors, starting_node):
         elif current_vertex != starting_node:
             paths.append(current_path)
 
-    return get_longest(paths) if len(paths) else -1
-
-
-def get_longest(paths):
-    result = paths[-1][-1]
-    for path in paths:
-        if len(path) == len(paths[-1]):
-            if result > path[-1]:
-                result = path[-1]
-    return result
+    if len(paths):
+        ancestor = paths[-1][-1]
+        for path in paths:
+            if len(path) == len(paths[-1]):
+                if ancestor > path[-1]:
+                    ancestor = path[-1]
+    return ancestor
 
 
 def create_graph(ancestors):
