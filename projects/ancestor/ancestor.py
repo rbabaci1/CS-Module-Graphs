@@ -16,24 +16,22 @@ def earliest_ancestor(ancestors, starting_node):
                 new_path.append(neighbor)
                 stack.append(new_path)
         elif current_vertex != starting_node:
+            if len(paths):
+                if len(paths[0]) == len(current_path):
+                    if paths[0][-1] > current_path[-1]:
+                        paths = [current_path]
+                elif len(paths[0]) < len(current_path):
+                    paths = [current_path]
+                continue
             paths.append(current_path)
-
-    if len(paths):
-        ancestor = paths[-1][-1]
-        for path in paths:
-            if len(path) == len(paths[-1]):
-                if ancestor > path[-1]:
-                    ancestor = path[-1]
-    return ancestor
+    return paths[0][-1] if len(paths) else -1
 
 
 def create_graph(ancestors):
     graph = {}
     for pair in ancestors:
-        if pair[1] in graph:
-            graph[pair[1]].add(pair[0])
-        else:
-            graph[pair[1]] = set()
-            graph[pair[1]].add(pair[0])
+        edge, vertex = pair[0], pair[1]
+        if vertex not in graph:
+            graph[vertex] = set()
+        graph[vertex].add(edge)
     return graph
-
