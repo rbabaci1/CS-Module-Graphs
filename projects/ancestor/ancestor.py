@@ -3,7 +3,7 @@ from collections import deque
 
 def earliest_ancestor(ancestors, starting_node):
     stack = deque()
-    graph, paths, ancestor = create_graph(ancestors), [], -1
+    graph, paths = create_graph(ancestors), []
     stack.append([starting_node])
 
     while len(stack):
@@ -32,18 +32,3 @@ def create_graph(ancestors):
             graph[vertex] = set()
         graph[vertex].add(edge)
     return graph
-
-
-test_ancestors = [
-    (1, 3),
-    (2, 3),
-    (3, 6),
-    (5, 6),
-    (5, 7),
-    (4, 5),
-    (4, 8),
-    (8, 9),
-    (11, 8),
-    (10, 1),
-]
-
