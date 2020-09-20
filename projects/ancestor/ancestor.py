@@ -32,3 +32,18 @@ def create_graph(ancestors):
             graph[vertex] = set()
         graph[vertex].add(edge)
     return graph
+
+
+test_ancestors = [
+    (1, 3),
+    (2, 3),
+    (3, 6),
+    (5, 6),
+    (5, 7),
+    (4, 5),
+    (4, 8),
+    (8, 9),
+    (11, 8),
+    (10, 1),
+]
+
