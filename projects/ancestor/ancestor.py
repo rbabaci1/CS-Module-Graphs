@@ -3,8 +3,8 @@ from collections import deque
 
 def earliest_ancestor(ancestors, starting_node):
     stack = deque()
-    stack.append([starting_node])
     graph, paths, ancestor = create_graph(ancestors), [], -1
+    stack.append([starting_node])
 
     while len(stack):
         current_path = stack.pop()
@@ -16,14 +16,11 @@ def earliest_ancestor(ancestors, starting_node):
                 new_path.append(neighbor)
                 stack.append(new_path)
         elif current_vertex != starting_node:
-            if len(paths):
-                if len(paths[0]) == len(current_path):
-                    if paths[0][-1] > current_path[-1]:
-                        paths = [current_path]
-                elif len(paths[0]) < len(current_path):
-                    paths = [current_path]
-                continue
-            paths.append(current_path)
+            if not len(paths):
+                paths.append(current_path)
+            elif len(current_path) > len(paths[0]) or current_path[-1] < paths[0][-1]:
+                paths = [current_path]
+
     return paths[0][-1] if len(paths) else -1
 
 
