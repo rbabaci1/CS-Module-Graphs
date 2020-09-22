@@ -2,8 +2,7 @@ from collections import deque
 
 
 def earliest_ancestor(ancestors, starting_node):
-    stack = deque()
-    graph, paths = create_graph(ancestors), []
+    graph, stack, paths = create_graph(ancestors), deque(), []
     stack.append([starting_node])
 
     while len(stack):
