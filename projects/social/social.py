@@ -70,6 +70,11 @@ class SocialGraph:
             friendship = possible_friendships[i]
             self.add_friendship(friendship[0], friendship[1])
 
+        # for i in range((num_users * avg_friendships) // 2):
+        #     avg = random.randint(0, len(possible_friendships) - 1)
+        #     friendship = possible_friendships[avg]
+        #     self.add_friendship(friendship[0], friendship[1])
+
     def get_all_social_paths(self, user_id):
         """
         Takes a user's user_id as an argument
@@ -99,11 +104,11 @@ class SocialGraph:
 
 if __name__ == "__main__":
     sg = SocialGraph()
-    sg.populate_graph(100, 10)
+    sg.populate_graph(1000, 5)
 
     # print(f"Users:\n {sg.users}\n")
-    # print(f"Friendships:\n {sg.friendships}\n")
+    print(f"Friendships:\n {sg.friendships}\n")
 
-    connections = sg.get_all_social_paths(1)
-    print(f"Connections:\n {connections}")
+    # connections = sg.get_all_social_paths(1)
+    # print(f"Connections:\n {connections}")
 
