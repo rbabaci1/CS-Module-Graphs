@@ -19,18 +19,7 @@ class SocialGraph:
     def reset(self):
         self.last_id = 0
         self.users = {}
-        self.friendships = {
-            1: {8, 10, 5},
-            2: {10, 5, 7},
-            3: {4},
-            4: {9, 3},
-            5: {8, 1, 2},
-            6: {10},
-            7: {2},
-            8: {1, 5},
-            9: {4},
-            10: {1, 2, 6},
-        }
+        self.friendships = {}
 
     def add_friendship(self, user_id, friend_id):
         """
@@ -67,19 +56,19 @@ class SocialGraph:
         """
         # Reset graph
         self.reset()
-        # # Add users
-        # for i in range(num_users):
-        #     self.add_user(f"User_{i + 1}")
+        # Add users
+        for i in range(num_users):
+            self.add_user(f"User_{i + 1}")
 
-        # possible_friendships = []
-        # for user_id in self.users:
-        #     for friend_id in range(user_id + 1, self.last_id + 1):
-        #         possible_friendships.append((user_id, friend_id))
+        possible_friendships = []
+        for user_id in self.users:
+            for friend_id in range(user_id + 1, self.last_id + 1):
+                possible_friendships.append((user_id, friend_id))
 
-        # random.shuffle(possible_friendships)
-        # for i in range(num_users * avg_friendships // 2):
-        #     friendship = possible_friendships[i]
-        #     self.add_friendship(friendship[0], friendship[1])
+        random.shuffle(possible_friendships)
+        for i in range(num_users * avg_friendships // 2):
+            friendship = possible_friendships[i]
+            self.add_friendship(friendship[0], friendship[1])
 
     def get_all_social_paths(self, user_id):
         """
