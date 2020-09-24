@@ -94,6 +94,7 @@ class SocialGraph:
 
             if current_user not in visited:
                 visited[current_user] = current_path
+
                 for friend in self.friendships[current_user]:
                     if friend not in visited:
                         new_path = list(current_path)
@@ -104,11 +105,8 @@ class SocialGraph:
 
 if __name__ == "__main__":
     sg = SocialGraph()
-    sg.populate_graph(1000, 5)
+    sg.populate_graph(10, 3)
+    connections = sg.get_all_social_paths(1)
 
-    # print(f"Users:\n {sg.users}\n")
     print(f"Friendships:\n {sg.friendships}\n")
-
-    # connections = sg.get_all_social_paths(1)
-    # print(f"Connections:\n {connections}")
-
+    print(f"Connections:\n {connections}")
