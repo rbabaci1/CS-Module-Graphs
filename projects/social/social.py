@@ -35,6 +35,7 @@ class SocialGraph:
         else:
             self.friendships[user_id].add(friend_id)
             self.friendships[friend_id].add(user_id)
+            return True
 
     def add_user(self, name):
         """
@@ -70,10 +71,20 @@ class SocialGraph:
             friendship = possible_friendships[i]
             self.add_friendship(friendship[0], friendship[1])
 
-        # for i in range((num_users * avg_friendships) // 2):
-        #     avg = random.randint(0, len(possible_friendships) - 1)
-        #     friendship = possible_friendships[avg]
-        #     self.add_friendship(friendship[0], friendship[1])
+    def populate_graph_linear(self, num_users, avg_friendships):
+        # Reset graph
+        self.reset()
+        # Add users
+        for i in range(num_users):
+            self.add_user(f"User_{i + 1}")
+
+        collisions = 0
+        for i in range(num_users * avg_friendships // 2):
+            user_id = random.randint(1, self.last_id)
+            friend_id = random.randint(1, self.last_id)
+            if not self.add_friendship(user_id, friend_id):
+                collisions += 1
+        print(f"Collisions: {collisions}")
 
     def get_all_social_paths(self, user_id):
         """
@@ -105,7 +116,8 @@ class SocialGraph:
 
 if __name__ == "__main__":
     sg = SocialGraph()
-    sg.populate_graph(10, 3)
+    # sg.populate_graph(1000, 3)
+    sg.populate_graph_linear(1000, 3)
     connections = sg.get_all_social_paths(1)
 
     print(f"Friendships:\n {sg.friendships}\n")
